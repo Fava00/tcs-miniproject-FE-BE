@@ -1,14 +1,21 @@
 # Compiled class file
 *.class
 
-# Log file
+# Logs and temp files
 *.log
+logs/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
 
 # BlueJ files
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
 
 # Package Files #
 *.jar
@@ -18,6 +25,78 @@
 *.zip
 *.tar.gz
 *.rar
+
+#Java spring boot
+target/
+.mvn/
+mvnw
+mvnw.cmd
+HELP.md
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+#Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/build
+/coverage
+coverage/
+.pnp
+.pnp.js
+.tsbuildinfo
+.next/
+out/
+.svelte-kit/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+dist/
+.nyc_output/
+
+#env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+#IDE files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode?
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.settings/
+.project
+.classpath
+.factorypath
+.springBeans
+.sts4-cache/
+.idea_modules/
+*.idea
+out/
+gen/
+
+#OS sepcific files
+.DS_Store
+.DS_Sore?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
