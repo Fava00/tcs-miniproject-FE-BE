@@ -2,6 +2,9 @@ package com.megyed.movie_database.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="movies")
 public class Movie {
@@ -21,7 +24,13 @@ public class Movie {
     private String director;
 
     @Column(name="genre")
-    private String genre;
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns  = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres = new HashSet<>();
 
     @Column(name="description")
     private String description;
@@ -37,24 +46,23 @@ public class Movie {
         this.director = director;
     }
 
-    public Movie(String title, String director, int releaseYear, String genre, String description) {
+    public Movie(String title, int releaseYear, String director, String description) {
         this.title = title;
-        this.director = director;
         this.releaseYear = releaseYear;
-        this.genre = genre;
+        this.director = director;
         this.description = description;
+
     }
 
-    public Movie(String title, String director, int releaseYear, String genre, String description, String posterURL) {
+
+    public Movie(Set<Genre> genres, String title, int releaseYear, String director, String description, String posterURL) {
+        this.genres = genres;
         this.title = title;
-        this.director = director;
         this.releaseYear = releaseYear;
-        this.genre = genre;
+        this.director = director;
         this.description = description;
         this.posterURL = posterURL;
     }
-
-
 
     public int getId() {
         return id;
@@ -72,8 +80,8 @@ public class Movie {
         return director;
     }
 
-    public String getGenre() {
-        return genre;
+    public Set<Genre> getGenres() {
+        return genres;
     }
 
     public String getDescription() {
@@ -100,8 +108,8 @@ public class Movie {
         this.director = director;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
     }
 
     public void setDescription(String description) {
@@ -119,7 +127,7 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", director='" + director + '\'' +
-                ", genre='" + genre + '\'' +
+                ", genres=" + genres +
                 ", description='" + description + '\'' +
                 ", posterURL='" + posterURL + '\'' +
                 '}';

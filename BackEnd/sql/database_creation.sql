@@ -13,6 +13,27 @@ USE movie_db;
 --    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 -- );
 
+CREATE TABLE IF NOT EXISTS genres(
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE INDEX idx_genres_name ON genres(name);
+
+INSERT INTO genres(name) VALUES
+('ACTION'),
+('COMEDY'),
+('DRAMA'),
+('HORROR'),
+('ROMANCE'),
+('THRILLER'),
+('ADVENTURE'),
+('FANTASY'),
+('DOCUMENTARY'),
+('CRIME'),
+('ANIMATION'),
+('SCIENCE FICTION');
+
 -- DROP TABLE IF EXISTS movies;
 CREATE TABLE IF NOT EXISTS movies(
 	id  BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -20,8 +41,15 @@ CREATE TABLE IF NOT EXISTS movies(
     director VARCHAR(100) NOT NULL,
     release_year INT,
     poster_url VARCHAR(500),
-    description TEXT,
-    genre VARCHAR(100)
+    description TEXT
 --  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE movie_genre (
+	movie_id BIGINT NOT NULL,
+    genre_id BIGINT NOT NULL,
+    PRIMARY KEY (movie_id,genre_id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
 );
