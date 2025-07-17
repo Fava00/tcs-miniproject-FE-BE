@@ -10,5 +10,6 @@ import java.util.Set;
 @RepositoryRestResource(path = "genres")
 public interface GenreRepository extends JpaRepository<Genre, Integer> {
     Set<Genre> findByNameIn(List<String> names);
+    Genre findByName(String name);
 
 }

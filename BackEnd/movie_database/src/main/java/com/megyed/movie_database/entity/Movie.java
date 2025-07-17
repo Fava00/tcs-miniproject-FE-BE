@@ -23,7 +23,6 @@ public class Movie {
     @Column(name="director")
     private String director;
 
-    @Column(name="genre")
     @ManyToMany
     @JoinTable(
             name = "movie_genre",

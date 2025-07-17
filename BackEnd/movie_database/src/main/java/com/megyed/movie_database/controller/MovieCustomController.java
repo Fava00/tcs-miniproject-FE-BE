@@ -68,7 +68,6 @@ public class MovieCustomController {
 
         Set<Genre> genres = genreRepository.findByNameIn(movieDTO.getGenres());
 
-        // Mezők frissítése
         movie.setTitle(movieDTO.getTitle());
         movie.setReleaseYear(movieDTO.getReleaseYear());
         movie.setDirector(movieDTO.getDirector());
