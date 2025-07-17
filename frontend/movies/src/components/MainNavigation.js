@@ -5,8 +5,8 @@ import classes from './MainNavigation.module.css';
 function MainNavigation() {
   return (
     <header className={classes.header}>
-      <nav>
-        <ul className={classes.list}>
+      <nav className={classes.nav}>
+        <ul className={`${classes.list} container`}>
           <li>
             <NavLink
               to="/"

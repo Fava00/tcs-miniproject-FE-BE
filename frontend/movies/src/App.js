@@ -3,8 +3,16 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error';
 import HomePage from './pages/Home';
-import MoviesPage from './pages/Movies';
+import MoviesList from './components/MoviesList';
+//import MoviesPage, { loader as moviesLoader } from './pages/Movies';
+import NewMoviePage from './pages/NewMovie';
+import MovieDetailsPage from './pages/MovieDetails';
+import EditMoviePage from './pages/EditMovie';
 import ProfilePage from './pages/Profile';
+
+
+
+import './App.css';
 //import EditEventPage from './pages/EditEvent';
 //import EventDetailPage, {
 //  loader as eventDetailLoader,
@@ -22,13 +30,20 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        index: true,
-        element: <HomePage />
-      },
+      { index: true, element: <HomePage /> },
       {
         path: 'movies',
-        element: <MoviesPage />,
+        children: [
+          { index: true, element: <MoviesList />, /*loader: moviesLoader*/},
+          { path: 'new', element: <NewMoviePage />, },
+          {
+            path: ':movieId',
+            children: [
+              { index: true, element: <MovieDetailsPage />, },
+              { path: 'edit', element: <EditMoviePage />, }
+            ]
+          }
+        ]
       },
       {
         path: 'profile',

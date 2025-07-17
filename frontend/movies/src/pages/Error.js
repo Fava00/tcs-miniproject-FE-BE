@@ -1,4 +1,7 @@
 import { useRouteError } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 import MainNavigation from '../components/MainNavigation';
 
 function ErrorPage() {
@@ -19,8 +22,10 @@ function ErrorPage() {
   return (
     <>
       <MainNavigation />
-        <h2>{title}</h2>
-        <p>{message}</p>
+      <Container maxWidth="lg">
+        <Typography component='h1' variant='h2'>{title}</Typography>
+        <Typography component='p' variant='body2'>{message}</Typography>
+      </Container>
     </>
   );
 }

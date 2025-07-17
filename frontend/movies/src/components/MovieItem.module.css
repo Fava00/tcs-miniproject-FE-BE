@@ -1,0 +1,43 @@
+.paperStyle {
+  display: flex;
+  flex-direction: row;
+  padding: 0.1rem;
+}
+
+.contentStyle {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+.title {
+  margin: 1.5rem;
+}
+
+.linkStyle {
+  text-decoration: none;
+  color: rgb(196, 214, 245);
+}
+
+.image {
+  width: 50%;
+  height: 100%;
+}
+
+.detailsButton, .favoriteButton {
+  background-color: rgb(74, 84, 177);
+  color: rgb(196, 214, 245);
+  font-size: 18px;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+}
+
+.detailsButton:hover, .favoriteButton:hover {
+  background-color: rgb(58, 66, 143);
+}
