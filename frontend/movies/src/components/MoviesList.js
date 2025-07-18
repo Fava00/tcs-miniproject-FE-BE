@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -48,11 +48,11 @@ const DUMMY_MOVIES = [
 
 
 function MoviesList( /*{movies}*/ ) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  function addMovieHandler() {
-    navigate('new');
-  }
+  // function addMovieHandler() {
+  //   navigate('new');
+  // }
 
   return (
     <Container maxWidth="lg">
@@ -63,10 +63,10 @@ function MoviesList( /*{movies}*/ ) {
       </Grid>
       <Box className={`container ${classes.listTitle}`} marginTop={7} marginBottom={3}>
         <Typography component='h2' variant='h3'>All movies</Typography>
-        <button className={classes.newButton} onClick={addMovieHandler}>Add new</button>
+        <button className={classes.newButton}><Link to='new'>Add new</Link></button>
       </Box>
       <Grid container spacing={5}>
-        {DUMMY_MOVIES.map(movie => (<MovieItem movieData={movie} favButtonText='Add to'/>))}
+        {DUMMY_MOVIES.map(movie => (<MovieItem key={movie.id} movieData={movie} favButtonText='Add to'/>))}
       </Grid>
     </Container>
   );

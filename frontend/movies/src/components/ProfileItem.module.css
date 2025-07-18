@@ -21,24 +21,22 @@
   background-color: rgb(54, 65, 163);
 }
 
-
-.form {
-  margin: 3rem 0;
-  font-size: 20px;
-}
-
-.form label,
-.form input {
-  display: block;
-  width: 100%;
-}
-
-.form input {
-  font: inherit;
-  padding: 0.25rem;
-}
-
-.signInButton {
+.signButton {
   display: block;
   float: right;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: rgb(196, 214, 245) solid 0.1rem;
+}
+
+.signButton a {
+  text-decoration: none;
+  color: rgb(196, 214, 245);
+}
+
+.signButton:hover {
+  background-color: rgb(43, 41, 58);
 }

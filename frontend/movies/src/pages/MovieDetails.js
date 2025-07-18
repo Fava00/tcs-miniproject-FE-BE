@@ -1,4 +1,4 @@
-import { Link, /*useParams,*/ useSubmit } from "react-router-dom";
+import { Link, /*useParams,*/ useSubmit, /*useRouteLoaderData,*/ redirect } from "react-router-dom";
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import classes from '../styles/MovieDetails.module.css';
 import testImg from '../assets/test_poster.jpg';
 
-const DUMMY_MOVIE = {
+export const DUMMY_MOVIE = {
   id: 'm1',
   title: 'Inception',
   releaseYear: 2010,
@@ -17,6 +17,7 @@ const DUMMY_MOVIE = {
 }
 
 function MovieDetails() {
+  // const data = useRouteLoaderData('movie-details');
   // const { movieId } = useParams();
   const submit = useSubmit();
 
@@ -63,3 +64,32 @@ function MovieDetails() {
 }
 
 export default MovieDetails;
+
+
+export async function loader({ params }) {
+  const id = params.movieId;
+
+  const response = await fetch('http://localhost:8080/movies/' + id);
+
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ message: 'Could not fetch details for selected movie.' }), {
+      status: 500,
+    });
+  } else {
+    return response;
+  }
+}
+
+export async function action({ params, request }) {
+  const movieId = params.movieId;
+  const response = await fetch('http://localhost:8080/movies/' + movieId, {
+    method: request.method,
+  });
+
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ message: 'Could not delete movie.' }), {
+      status: 500,
+    });
+  }
+  return redirect('/movies');
+}

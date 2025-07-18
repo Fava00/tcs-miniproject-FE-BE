@@ -4,7 +4,6 @@ import { useLoaderData, Await } from 'react-router-dom';
 import MoviesList from '../components/MoviesList';
 
 function MoviesPage() {
-
   const { movies } = useLoaderData();
 
   return (
@@ -18,15 +17,14 @@ function MoviesPage() {
 
 export default MoviesPage;
 
-/*
 export async function loader() {
-  const response = await fetch('http://localhost:8080/events');
+  const response = await fetch('http://localhost:8080/movies');
 
   if (!response.ok) {
-    throw new Response(JSON.stringify({ message: 'Could not fetch events.' }), {
+    throw new Response(JSON.stringify({ message: 'Could not fetch movies.' }), {
       status: 500,
     });
   } else {
     return response;
   }
-}*/
+}

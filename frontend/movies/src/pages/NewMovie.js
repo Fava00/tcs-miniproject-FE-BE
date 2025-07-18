@@ -4,7 +4,7 @@ import MovieForm from '../components/MovieForm';
 
 function NewMoviePage() {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="sm">
       <MovieForm method='post' />
     </Container>
   );

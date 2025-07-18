@@ -14,7 +14,7 @@
   padding: 0.25rem;
 }
 
-.signInButton {
+.signingButton {
   display: block;
   float: right;
   font: inherit;
@@ -26,6 +26,6 @@
   border: rgb(196, 214, 245) solid 0.1rem;
 }
 
-.signInButton:hover {
+.signingButton:hover {
   background-color: rgb(58, 68, 156);
 }

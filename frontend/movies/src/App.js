@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import RootLayout from './pages/Root';
@@ -6,11 +7,12 @@ import HomePage from './pages/Home';
 import MoviesList from './components/MoviesList';
 //import MoviesPage, { loader as moviesLoader } from './pages/Movies';
 import NewMoviePage from './pages/NewMovie';
-import MovieDetailsPage from './pages/MovieDetails';
+import MovieDetailsPage/*, { loader movieDetailsLoader, action as deleteMovieAction }*/ from './pages/MovieDetails';
 import EditMoviePage from './pages/EditMovie';
-import ProfilePage from './pages/Profile';
-
-
+// import { action as modifyMovieAction } from './components/MovieForm';
+import ProfilePage/*, { loader as profileLoader }*/ from './pages/Profile';
+import SignInPage/*, { action as signInAction }*/ from './pages/SignIn';
+import SignUpPage/*, { action as signUpAction }*/ from './pages/SignUp';
 
 import './App.css';
 //import EditEventPage from './pages/EditEvent';
@@ -24,6 +26,7 @@ import './App.css';
 //import { action as manipulateEventAction } from './components/EventForm';
 //import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -34,20 +37,26 @@ const router = createBrowserRouter([
       {
         path: 'movies',
         children: [
-          { index: true, element: <MoviesList />, /*loader: moviesLoader*/},
-          { path: 'new', element: <NewMoviePage />, },
+          { index: true, element: <MoviesList />, /*element: <MoviesPage />, loader: moviesLoader*/},
+          { path: 'new', element: <NewMoviePage />, /*action: modifyMovieAction*/},
           {
             path: ':movieId',
+            id: 'movie-details',
+            // loader: movieDetailsLoader,
             children: [
-              { index: true, element: <MovieDetailsPage />, },
-              { path: 'edit', element: <EditMoviePage />, }
+              { index: true, element: <MovieDetailsPage />, /*action: deleteMovieAction*/},
+              { path: 'edit', element: <EditMoviePage />, /*action: modifyMovieAction*/}
             ]
           }
         ]
       },
       {
         path: 'profile',
-        element: <ProfilePage />,
+        children: [
+          { index: true, element: <ProfilePage />, /*loader: profileLoader,*/ /*action: logOutAction,*/ },
+          { path: 'signin', element: <SignInPage />, /*action: signInAction,*/ },
+          { path: 'signup', element: <SignUpPage />, /*action: signUpAction,*/ }
+        ]
       }
     ],
   },
