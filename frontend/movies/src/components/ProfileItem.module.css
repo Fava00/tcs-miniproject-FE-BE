@@ -1,0 +1,42 @@
+.profileBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 17rem;
+}
+
+.profileBox button, .signInButton {
+  align-self: flex-end;
+  background-color: rgb(64, 78, 201);
+  color: rgb(196, 214, 245);
+  font-size: 22px;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border: 0.1rem solid rgb(196, 214, 245);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.profileBox button:hover, .signInButton:hover {
+  background-color: rgb(54, 65, 163);
+}
+
+.signButton {
+  display: block;
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: rgb(196, 214, 245) solid 0.1rem;
+}
+
+.signButton a {
+  text-decoration: none;
+  color: rgb(196, 214, 245);
+}
+
+.signButton:hover {
+  background-color: rgb(43, 41, 58);
+}
