@@ -3,6 +3,9 @@ package com.megyed.movie_database.controller;
 import com.megyed.movie_database.dao.AppUserRepository;
 import com.megyed.movie_database.dto.RegistrationRequest;
 import com.megyed.movie_database.entity.AppUser;
+import com.megyed.movie_database.exception.ConflictException;
+import com.megyed.movie_database.exception.ForbiddenException;
+import com.megyed.movie_database.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +28,15 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegistrationRequest req) {
         if ("admin".equalsIgnoreCase(req.getUsername())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This username is forbidden");
+            throw new ForbiddenException("This username is forbidden");
         }
         if(userRepository.existsByUsername(req.getUsername())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already taken");
+            throw new ConflictException("Username is already taken");
         }
         AppUser newUser = new AppUser();
         newUser.setUsername(req.getUsername());
         newUser.setRole("USER");
-        newUser.setPassword("{noop}" + req.getPassword()); //TODO: teszthez. Bcrypt élesben!
+        newUser.setPassword("{noop}" + req.getPassword());
         userRepository.save(newUser);
         return ResponseEntity.ok().build();
     }
@@ -47,7 +50,7 @@ public class AuthController {
             session.setAttribute("currentRole", user.getRole());
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong data!");
+        throw new UnauthorizedException("Invalid username or password!");
     }
 
     @PostMapping("/logout")

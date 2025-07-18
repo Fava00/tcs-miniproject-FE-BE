@@ -5,6 +5,8 @@ import com.megyed.movie_database.dao.GenreRepository;
 import com.megyed.movie_database.dao.MovieRepository;
 import com.megyed.movie_database.entity.Genre;
 import com.megyed.movie_database.entity.Movie;
+import com.megyed.movie_database.exception.ConflictException;
+import com.megyed.movie_database.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,10 +54,10 @@ public class MovieCustomController {
     @PutMapping("/{id}")
     public ResponseEntity<MovieDTO> updateMovie(@PathVariable int id, @RequestBody @Valid MovieDTO movieDTO) {
         Movie movie = movieRepository.findById(id).orElseThrow(()
-        -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can not found movie"));
+        -> new ResourceNotFoundException("Can not found movie"));
 
         if(movieDTO.getGenres() != null && !movieDTO.getGenres().isEmpty() && movieDTO.getGenres().size() > 2) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Genres can't be modified");
+            throw new ConflictException("Genres can't be modified");
         }
 
         Set<Genre> genres = genreRepository.findByNameIn(movieDTO.getGenres());
@@ -66,7 +68,7 @@ public class MovieCustomController {
     @DeleteMapping("/{id}")
     public ResponseEntity<MovieDTO> deleteMovie(@PathVariable int id) {
         if(!movieRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can not found movie");
+            throw new ResourceNotFoundException("Can not found movie");
         }
         movieRepository.deleteById(id);
         return ResponseEntity.noContent().build();

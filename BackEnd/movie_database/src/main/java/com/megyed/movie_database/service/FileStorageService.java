@@ -1,7 +1,8 @@
 package com.megyed.movie_database.service;
 
+import com.megyed.movie_database.exception.FileStorageException;
+import com.megyed.movie_database.exception.ResourceNotFoundException;
 import org.springframework.core.io.Resource;
-//import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,19 +26,26 @@ public class FileStorageService {
         try{
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
-            throw new RuntimeException("Could not create the directory", ex);
+            throw new FileStorageException("Could not create the directory", ex);
         }
     }
 
     public String storeFile(MultipartFile file){
+        if(file.isEmpty()){
+            throw new FileStorageException("Can not store empty file");
+        }
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try{
+            if(fileName.contains("..")){
+                throw new FileStorageException("Invalid file name: "+fileName);
+            }
             String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
             Path targetLocation = this. fileStorageLocation.resolve(uniqueFileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println(uniqueFileName);
             return  uniqueFileName;
         } catch (IOException ex) {
-            throw new RuntimeException("Could not store file", ex);
+            throw new FileStorageException("Could not store file "+ fileName, ex);
         }
     }
 
@@ -48,10 +56,10 @@ public class FileStorageService {
             if(resource.exists()){
                 return resource;
             } else {
-                throw new RuntimeException("File not found");
+                throw new ResourceNotFoundException("File not found: "+fileName);
             }
         } catch (MalformedURLException ex) {
-            throw new RuntimeException("File not found", ex);
+            throw new FileStorageException("File not found:"+ fileName, ex);
         }
     }
 }
