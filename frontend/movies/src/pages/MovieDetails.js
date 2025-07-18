@@ -1,4 +1,4 @@
-import { Link, /*useParams,*/ useSubmit, /*useRouteLoaderData,*/ redirect } from "react-router-dom";
+import { Link, /*useParams,*/ useSubmit, useRouteLoaderData, redirect } from "react-router-dom";
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -7,17 +7,17 @@ import Box from '@mui/material/Box';
 import classes from '../styles/MovieDetails.module.css';
 import testImg from '../assets/test_poster.jpg';
 
-export const DUMMY_MOVIE = {
-  id: 'm1',
-  title: 'Inception',
-  releaseYear: 2010,
-  director: 'Christopher Nolan',
-  genre: 'Sci-Fi',
-  description: 'A mind-bending thriller by Christopher Nolan.',
-}
+// export const DUMMY_MOVIE = {
+//   id: 'm1',
+//   title: 'Inception',
+//   releaseYear: 2010,
+//   director: 'Christopher Nolan',
+//   genre: 'Sci-Fi',
+//   description: 'A mind-bending thriller by Christopher Nolan.',
+// }
 
 function MovieDetails() {
-  // const data = useRouteLoaderData('movie-details');
+  const { movie } = useRouteLoaderData('movie-details');
   // const { movieId } = useParams();
   const submit = useSubmit();
 
@@ -34,19 +34,19 @@ function MovieDetails() {
       <Box className={classes.detailsBox}>
         {/* {movieId && <p>Details for movie ID: {movieId}</p>} */}
         <Typography component='h1' variant="h2" fontWeight={400} marginBottom={2}>
-          {DUMMY_MOVIE.title}
+          {movie.title}
         </Typography>
         <Typography component='p' variant="h5">
-          Released in: {DUMMY_MOVIE.releaseYear}
+          Released in: {movie.releaseYear}
         </Typography>
         <Typography component='p' variant="h5">
-          Genre: {DUMMY_MOVIE.genre}
+          Genre: {movie.genre}
         </Typography>
         <Typography component='p' variant="h5">
-          Director: {DUMMY_MOVIE.director}
+          Director: {movie.director}
         </Typography>
         <Typography component='p' variant="body1" marginTop={1}>
-          {DUMMY_MOVIE.description}
+          {movie.description}
         </Typography>
         <Box className={classes.buttonMenu} marginTop={3}>
           <button className={classes.editButton}>
@@ -57,7 +57,7 @@ function MovieDetails() {
       </Box>
       <img
         src={testImg}
-        alt={DUMMY_MOVIE.title}
+        alt={movie.title}
         className={classes.image} />
     </Container>
   );
@@ -67,9 +67,9 @@ export default MovieDetails;
 
 
 export async function loader({ params }) {
-  const id = params.movieId;
+  const movieId = params.movieId;
 
-  const response = await fetch('http://localhost:8080/movies/' + id);
+  const response = await fetch('http://localhost:8080/movies/' + movieId);
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: 'Could not fetch details for selected movie.' }), {

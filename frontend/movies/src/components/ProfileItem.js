@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useSubmit } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -7,8 +7,10 @@ import Box from '@mui/material/Box';
 import classes from './ProfileItem.module.css';
 
 function ProfileItem({ userData }) {
+  const submit = useSubmit();
+
   function handleLogOut() {
-    console.log('User logged out');
+    submit(userData.username, { method: 'post'});
   }
 
   return (

@@ -47,13 +47,7 @@ const DUMMY_MOVIES = [
 ];
 
 
-function MoviesList( /*{movies}*/ ) {
-  // const navigate = useNavigate();
-
-  // function addMovieHandler() {
-  //   navigate('new');
-  // }
-
+function MoviesList({ movies }) {
   return (
     <Container maxWidth="lg">
       <Typography component='h2' variant='h3' marginBottom={3}>Favorite movies</Typography>
@@ -66,7 +60,7 @@ function MoviesList( /*{movies}*/ ) {
         <button className={classes.newButton}><Link to='new'>Add new</Link></button>
       </Box>
       <Grid container spacing={5}>
-        {DUMMY_MOVIES.map(movie => (<MovieItem key={movie.id} movieData={movie} buttonAction='add'/>))}
+        {movies.map(movie => (<MovieItem key={movie.id} movieData={movie} buttonAction='add'/>))}
       </Grid>
     </Container>
   );

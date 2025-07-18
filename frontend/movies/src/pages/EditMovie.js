@@ -1,15 +1,15 @@
-// import { useRouteLoaderData } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 import Container from "@mui/material/Container";
 
 import MovieForm from "../components/MovieForm";
-import { DUMMY_MOVIE } from "./MovieDetails"; // Assuming you have a dummy movie data file
+// import { DUMMY_MOVIE } from "./MovieDetails";
 
 function EditMoviePage() {
-  // const data = useRouteLoaderData('movie-details');
+  const data = useRouteLoaderData('movie-details');
 
   return (
     <Container maxWidth="sm">
-      <MovieForm method='patch' movie={DUMMY_MOVIE} /*movie={data.movie}*/ />
+      <MovieForm method='patch' movie={data.movie} />
     </Container>
   );
 }

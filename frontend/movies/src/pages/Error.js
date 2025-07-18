@@ -22,7 +22,7 @@ function ErrorPage() {
   return (
     <>
       <MainNavigation />
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Typography component='h1' variant='h2'>{title}</Typography>
         <Typography component='p' variant='body2'>{message}</Typography>
       </Container>
