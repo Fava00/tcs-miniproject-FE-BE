@@ -58,15 +58,15 @@ function MoviesList( /*{movies}*/ ) {
     <Container maxWidth="lg">
       <Typography component='h2' variant='h3' marginBottom={3}>Favorite movies</Typography>
       <Grid container spacing={5}>
-        <MovieItem movieData={DUMMY_MOVIES[0]} favButtonText='Delete from'/>
-        <MovieItem movieData={DUMMY_MOVIES[3]} favButtonText='Delete from'/>
+        <MovieItem movieData={DUMMY_MOVIES[0]} buttonAction='delete'/>
+        <MovieItem movieData={DUMMY_MOVIES[3]} buttonAction='delete'/>
       </Grid>
       <Box className={`container ${classes.listTitle}`} marginTop={7} marginBottom={3}>
         <Typography component='h2' variant='h3'>All movies</Typography>
         <button className={classes.newButton}><Link to='new'>Add new</Link></button>
       </Box>
       <Grid container spacing={5}>
-        {DUMMY_MOVIES.map(movie => (<MovieItem key={movie.id} movieData={movie} favButtonText='Add to'/>))}
+        {DUMMY_MOVIES.map(movie => (<MovieItem key={movie.id} movieData={movie} buttonAction='add'/>))}
       </Grid>
     </Container>
   );

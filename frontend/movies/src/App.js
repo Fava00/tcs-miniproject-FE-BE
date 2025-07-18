@@ -6,26 +6,16 @@ import ErrorPage from './pages/Error';
 import HomePage from './pages/Home';
 import MoviesList from './components/MoviesList';
 //import MoviesPage, { loader as moviesLoader } from './pages/Movies';
+// import { action as modifyFavoritesAction } from './components/MovieItem';
 import NewMoviePage from './pages/NewMovie';
+// import { action as modifyMovieAction } from './components/MovieForm';
 import MovieDetailsPage/*, { loader movieDetailsLoader, action as deleteMovieAction }*/ from './pages/MovieDetails';
 import EditMoviePage from './pages/EditMovie';
-// import { action as modifyMovieAction } from './components/MovieForm';
 import ProfilePage/*, { loader as profileLoader }*/ from './pages/Profile';
 import SignInPage/*, { action as signInAction }*/ from './pages/SignIn';
 import SignUpPage/*, { action as signUpAction }*/ from './pages/SignUp';
 
 import './App.css';
-//import EditEventPage from './pages/EditEvent';
-//import EventDetailPage, {
-//  loader as eventDetailLoader,
-//  action as deleteEventAction,
-//} from './pages/EventDetail';
-//import EventsPage, { loader as eventsLoader } from './pages/Events';
-//import EventsRootLayout from './pages/EventsRoot';
-//import NewEventPage from './pages/NewEvent';
-//import { action as manipulateEventAction } from './components/EventForm';
-//import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
-
 
 const router = createBrowserRouter([
   {
@@ -37,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: 'movies',
         children: [
-          { index: true, element: <MoviesList />, /*element: <MoviesPage />, loader: moviesLoader*/},
+          { index: true, element: <MoviesList />, /*element: <MoviesPage />, loader: moviesLoader, action: modifyFavoritesAction*/},
           { path: 'new', element: <NewMoviePage />, /*action: modifyMovieAction*/},
           {
             path: ':movieId',

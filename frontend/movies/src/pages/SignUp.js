@@ -7,7 +7,7 @@ function SignUpPage() {
   return (
     <Container maxWidth="sm">
       <Typography component='h1' variant='h3'>Sign Up</Typography>
-      <SignUpForm />
+      <SignUpForm signAction='signup' />
     </Container>
   );
 }

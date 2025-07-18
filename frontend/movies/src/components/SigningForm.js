@@ -1,13 +1,13 @@
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import { Form, redirect } from 'react-router-dom';
 
 import Box from "@mui/material/Box";
 
 import classes from './SigningForm.module.css';
 
-function SigningForm() {
-  const username = useRef();
-  const password = useRef();
+function SigningForm({ signAction }) {
+  // const username = useRef();
+  // const password = useRef();
 
   return (
     <>
@@ -18,7 +18,7 @@ function SigningForm() {
             id="username"
             type="text"
             name="username"
-            ref={username}
+            // ref={username}
             required 
           />
         </Box>
@@ -28,10 +28,12 @@ function SigningForm() {
             id="password"
             type="text"
             name="password"
-            ref={password}
+            // ref={password}
             required 
           />
         </Box>
+        {/* <p>{signAction}</p> */}
+        <input type="hidden" name="signAction" value={signAction}/>
         <button className={classes.signingButton}>Submit</button>
       </Form>
     </>
@@ -49,10 +51,11 @@ export async function action({ request }) {
     password: data.get('password'),
   };
 
+  const signAction = data.get('signAction');
+
   let url = 'http://localhost:8080/signin';
 
-  if (request.url.includes('signup')) {
-    userData.isSignup = true;
+  if (signAction === 'signup') {
     url = 'http://localhost:8080/register';
   }
 
@@ -65,7 +68,7 @@ export async function action({ request }) {
   });
 
   if (!response.ok) {
-    throw new Response(JSON.stringify({ message: 'Could not save movie.' }), {
+    throw new Response(JSON.stringify({ message: `Could not sign ${(signAction === 'signup') ? 'up' : 'in'} user.` }), {
       status: 500,
     });
   }

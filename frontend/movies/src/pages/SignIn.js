@@ -11,7 +11,7 @@ function SignInPage() {
   return (
     <Container maxWidth="sm">
       <Typography component='h1' variant='h3'>Sign In</Typography>
-      <SignInForm />
+      <SignInForm signAction='signin' />
       <Box marginTop={30}>
         <Typography component='p' variant='h5'>Don't have an account?</Typography>
         <button className={classes.signButton}><Link to='/profile/signup'>Sign Up</Link></button>

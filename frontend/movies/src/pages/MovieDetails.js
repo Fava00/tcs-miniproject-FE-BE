@@ -87,7 +87,7 @@ export async function action({ params, request }) {
   });
 
   if (!response.ok) {
-    throw new Response(JSON.stringify({ message: 'Could not delete movie.' }), {
+    throw new Response(JSON.stringify({ message: `Could not delete movie.` }), {
       status: 500,
     });
   }
