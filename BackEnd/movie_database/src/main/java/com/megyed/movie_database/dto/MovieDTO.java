@@ -1,23 +1,30 @@
 package com.megyed.movie_database.dto;
 
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
 public class MovieDTO {
     private int id;
 
+    @NotNull(message = "Title cannot be null")
     private String title;
 
+    @Min(value = 1888, message = "Release year must be at least 1888")
+    @Max(value = 2100, message = "Release year must be at most 2100")
     private int releaseYear;
 
+    @NotNull(message = "Director cannot be null")
+    @NotBlank(message = "Director cannot be blank")
     private String director;
 
+    @Size(max = 1000, message = "Description must be at most 1000 characters")
     private String description;
+
 
     private String posterURL;
 
-    @Size(max = 3, message = "Maximum 3 műfaj választható egy filmhez!")
+    @Size(max = 2, message = "You can select a maximum of 2 genres!")
     private List<String> genres;
 
     public int getId() {
