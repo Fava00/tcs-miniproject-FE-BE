@@ -46,15 +46,7 @@ public class MovieCustomController {
         Set<Genre> genres = genreRepository.findByNameIn(movieDTO.getGenres());
 
         Movie movie = new Movie();
-        movie.setTitle(movieDTO.getTitle());
-        movie.setReleaseYear(movieDTO.getReleaseYear());
-        movie.setDirector(movieDTO.getDirector());
-        movie.setDescription(movieDTO.getDescription());
-        movie.setPosterURL(movieDTO.getPosterURL());
-        movie.setGenres(genres);
-
-        Movie saved = movieRepository.save(movie);
-        return ResponseEntity.ok(mapToDTO(saved));
+        return saveMovieDTO_ToRepo(movieDTO, genres, movie);
     }
 
     @PutMapping("/{id}")
@@ -68,15 +60,7 @@ public class MovieCustomController {
 
         Set<Genre> genres = genreRepository.findByNameIn(movieDTO.getGenres());
 
-        movie.setTitle(movieDTO.getTitle());
-        movie.setReleaseYear(movieDTO.getReleaseYear());
-        movie.setDirector(movieDTO.getDirector());
-        movie.setDescription(movieDTO.getDescription());
-        movie.setPosterURL(movieDTO.getPosterURL());
-        movie.setGenres(genres);
-
-        Movie saved = movieRepository.save(movie);
-        return ResponseEntity.ok(mapToDTO(saved));
+        return saveMovieDTO_ToRepo(movieDTO, genres, movie);
     }
 
     @DeleteMapping("/{id}")
@@ -105,6 +89,18 @@ public class MovieCustomController {
         dto.setGenres(movie.getGenres().stream()
                 .map(Genre::getName).collect(Collectors.toList()));
         return dto;
+    }
+
+    private ResponseEntity<MovieDTO> saveMovieDTO_ToRepo(@RequestBody @Valid MovieDTO movieDTO, Set<Genre> genres, Movie movie) {
+        movie.setTitle(movieDTO.getTitle());
+        movie.setReleaseYear(movieDTO.getReleaseYear());
+        movie.setDirector(movieDTO.getDirector());
+        movie.setDescription(movieDTO.getDescription());
+        movie.setPosterURL(movieDTO.getPosterURL());
+        movie.setGenres(genres);
+
+        Movie saved = movieRepository.save(movie);
+        return ResponseEntity.ok(mapToDTO(saved));
     }
 }
 
