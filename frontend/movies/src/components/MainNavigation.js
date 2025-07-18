@@ -30,7 +30,7 @@ function MainNavigation() {
           </li>
           <li>
             <NavLink
-              to="/profile"
+              to="/profile/signin"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }

@@ -5,11 +5,11 @@ import MovieForm from "../components/MovieForm";
 // import { DUMMY_MOVIE } from "./MovieDetails";
 
 function EditMoviePage() {
-  const data = useRouteLoaderData('movie-details');
+  const movie = useRouteLoaderData('movie-details');
 
   return (
     <Container maxWidth="sm">
-      <MovieForm method='patch' movie={data.movie} />
+      <MovieForm method='put' movie={movie} formAction='edit'/>
     </Container>
   );
 }

@@ -4,12 +4,13 @@ import { useLoaderData, Await } from 'react-router-dom';
 import MoviesList from '../components/MoviesList';
 
 function MoviesPage() {
-  const { movies } = useLoaderData();
+  const movies = useLoaderData();
 
+  console.log(movies);
   return (
     <Suspense fallback={<p style={{ textAlign: 'center' }}>Loading...</p>}>
       <Await resolve={movies}>
-        {( loadedMovies ) => <MoviesList movies={loadedMovies} />}
+        {<MoviesList movies={movies} />}
       </Await>
     </Suspense>
   );
@@ -17,8 +18,10 @@ function MoviesPage() {
 
 export default MoviesPage;
 
+
 export async function loader() {
-  const response = await fetch('http://localhost:8080/api/custom-movies');
+  const response = await fetch('http://localhost:8080/api/custom-movies', { method: 'get' });
+  // console.log(response);
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: 'Could not fetch movies.' }), {

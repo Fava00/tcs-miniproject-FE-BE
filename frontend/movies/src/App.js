@@ -41,11 +41,10 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        action: signAction,
         children: [
           { index: true, element: <ProfilePage />, loader: profileLoader, action: logOutAction },
-          { path: 'signin', element: <SignInPage />, },
-          { path: 'signup', element: <SignUpPage />, }
+          { path: 'signin', element: <SignInPage />, action: signAction,},
+          { path: 'signup', element: <SignUpPage />, action: signAction,}
         ]
       }
     ],

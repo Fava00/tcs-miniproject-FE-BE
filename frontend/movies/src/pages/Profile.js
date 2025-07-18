@@ -10,12 +10,12 @@ import ProfileItem from '../components/ProfileItem';
 // }
 
 function ProfilePage() {
-  const { user } = useLoaderData();
+  const user = useLoaderData();
 
   return (
     <Suspense fallback={<p style={{ textAlign: 'center' }}>Loading...</p>}>
       <Await resolve={user}>
-        {( loadedUser ) => <ProfileItem userData={loadedUser} />}
+        {<ProfileItem userData={user} />}
       </Await>
     </Suspense>
   );
@@ -27,7 +27,9 @@ export default ProfilePage;
 
 
 export async function loader() {
-  const response = await fetch('http://localhost:8080/profile');
+  const response = await fetch('http://localhost:8080/me/data', { method: 'get'});
+
+  console.log(response);
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: 'Could not fetch user data.' }), {
@@ -39,7 +41,7 @@ export async function loader() {
 }
 
 export async function action({ request }) {
-  const response = await fetch('http://localhost:8080/profile', { method: request.method });
+  const response = await fetch('http://localhost:8080/auth/logout', { method: request.method, });
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: 'Could not log out user.' }), {
@@ -47,5 +49,5 @@ export async function action({ request }) {
     });
   }
 
-  return redirect('/profile');
+  return redirect('/movies');
 }

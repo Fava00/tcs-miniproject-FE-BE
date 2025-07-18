@@ -17,7 +17,7 @@ import testImg from '../assets/test_poster.jpg';
 // }
 
 function MovieDetails() {
-  const { movie } = useRouteLoaderData('movie-details');
+  const movie = useRouteLoaderData('movie-details');
   // const { movieId } = useParams();
   const submit = useSubmit();
 
@@ -69,7 +69,11 @@ export default MovieDetails;
 export async function loader({ params }) {
   const movieId = params.movieId;
 
-  const response = await fetch('http://localhost:8080/movies/' + movieId);
+  const id = movieId.slice(-2);
+
+  const response = await fetch('http://localhost:8080/api/custom-movies/' + id, {method: 'get'});
+
+  console.log(response);
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: 'Could not fetch details for selected movie.' }), {
@@ -82,7 +86,10 @@ export async function loader({ params }) {
 
 export async function action({ params, request }) {
   const movieId = params.movieId;
-  const response = await fetch('http://localhost:8080/movies/' + movieId, {
+
+  const id = movieId.slice(-2);
+
+  const response = await fetch('http://localhost:8080/api/custom-movies/' + id, {
     method: request.method,
   });
 

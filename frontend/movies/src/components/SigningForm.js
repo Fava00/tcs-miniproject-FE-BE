@@ -32,7 +32,6 @@ function SigningForm({ signAction }) {
             required 
           />
         </Box>
-        {/* <p>{signAction}</p> */}
         <input type="hidden" name="signAction" value={signAction}/>
         <button className={classes.signingButton}>Submit</button>
       </Form>
@@ -47,16 +46,16 @@ export async function action({ request }) {
   const data = await request.formData();
 
   const userData = {
-    usernamer: data.get('username'),
+    username: data.get('username'),
     password: data.get('password'),
   };
 
   const signAction = data.get('signAction');
 
-  let url = 'http://localhost:8080/signin';
+  let url = 'http://localhost:8080/auth/login';
 
   if (signAction === 'signup') {
-    url = 'http://localhost:8080/register';
+    url = 'http://localhost:8080/auth/register';
   }
 
   const response = await fetch(url, {
@@ -66,6 +65,8 @@ export async function action({ request }) {
     },
     body: JSON.stringify(userData),
   });
+
+  console.log(response);
 
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: `Could not sign ${(signAction === 'signup') ? 'up' : 'in'} user.` }), {

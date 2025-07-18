@@ -33,7 +33,7 @@ function MovieItem({ movieData, buttonAction }) {
             {movieData.description}
           </Typography>
           <button className={classes.detailsButton}>
-            <Link to={movieData.id} className={classes.linkStyle}>View details</Link>
+            <Link to={`/movies/:${movieData.id}`} className={classes.linkStyle}>View details</Link>
           </button>
           <button onClick={handleFavorites} className={classes.favoriteButton}>
             {(buttonAction === 'delete'? 'Delete from' : 'Add to')} favorites

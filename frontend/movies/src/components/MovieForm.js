@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import classes from './MovieForm.module.css';
 import Grid from '@mui/material/Grid';
 
-function MovieForm({ method, movie }) {
+function MovieForm({ method, movie, formAction }) {
   //const data = useActionData();
   const navigate = useNavigate();
 
@@ -89,9 +89,8 @@ function MovieForm({ method, movie }) {
         <label htmlFor="posterURL">Poster</label>
         <input
           id="posterURL"
-          type="url"
+          type="text"
           name="posterURL"
-          required
           defaultValue={movie ? movie.posterURL : ''}
         />
       </Box>
@@ -109,6 +108,7 @@ function MovieForm({ method, movie }) {
         <button type="button" onClick={cancelHandler} className={classes.cancelButton}>Cancel</button>
         <button className={classes.saveButton}>Save</button>
       </Box>
+      <input type="hidden" name="formAction" value={formAction}/>
     </Form>
   );
 }
@@ -131,11 +131,19 @@ export async function action({ request, params }) {
     description: data.get('description'),
   };
 
-  let url = 'http://localhost:8080/movies';
+  const formAction = data.get('formAction');
 
-  if (method === 'PATCH') {
+  let url = '';
+
+  if (formAction === 'new') {
+    url = 'http://localhost:8080/api/custom-movies';
+  }
+  else if (formAction === 'edit') {
     const movieId = params.movieId;
-    url = 'http://localhost:8080/movies/' + movieId;
+
+    const id = movieId.slice(-2);
+
+    url = 'http://localhost:8080/api/custom-movies/' + id;
   }
 
   const response = await fetch(url, {
@@ -145,6 +153,8 @@ export async function action({ request, params }) {
     },
     body: JSON.stringify(movieData),
   });
+
+  console.log(response);
 
   // if (response.status === 422) {
   //   return response;

@@ -60,7 +60,7 @@ function MoviesList({ movies }) {
         <button className={classes.newButton}><Link to='new'>Add new</Link></button>
       </Box>
       <Grid container spacing={5}>
-        {movies.map(movie => (<MovieItem key={movie.id} movieData={movie} buttonAction='add'/>))}
+        {movies?.map(movie => (<MovieItem key={movie.id} movieData={movie} buttonAction='post'/>))}
       </Grid>
     </Container>
   );
